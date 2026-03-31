@@ -1,24 +1,19 @@
-// server.js — Railway ESM Compatible
-import express from 'express';
-import { Telegraf } from 'telegraf';
-
+const express = require('express');
+const { Telegraf } = require('telegraf');
 const app = express();
+
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-const bot = new Telegraf(process.env.TELEGRAM_TOKEN || 'demo');
-
-// Simple Qwen simulation (Ollama later)
-bot.on('text', async (ctx) => {
-  const message = ctx.message.text;
-  const response = `Qwen3.5: Understood "${message}". Agency lead gen ready.`;
-  ctx.reply(response);
+// HEALTH CHECK - Shows "OpenClaw Live!"
+app.get('/', (req, res) => {
+  res.send('<h1>OpenClaw Railway Live! 🚀</h1><p>Bot ready for TELEGRAM_TOKEN</p>');
 });
 
-// Health check
-app.get('/', (req, res) => res.send('OpenClaw Railway Live!'));
-app.use(bot.webhookCallback('/bot'));
+// Bot placeholder
+app.get('/bot', (req, res) => res.send('Bot endpoint ready'));
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => {
-  console.log(`OpenClaw on port ${port}`);
+  console.log(`🚀 OpenClaw running on port ${port}`);
 });
