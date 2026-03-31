@@ -1,7 +1,7 @@
-const express = require('express');
-const { Telegraf } = require('telegraf');
-const { OpenClaw } = require('openclaw');
-const ollama = require('ollama');
+import express from 'express';
+import { Telegraf } from 'telegraf';
+import { OpenClaw } from 'openclaw';
+import ollama from 'ollama';
 
 const app = express();
 app.use(express.json());
@@ -14,13 +14,14 @@ const claw = new OpenClaw({
 const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
 
 // Health check
-app.get('/', (req, res) => res.send('OpenClaw Live!'));
+app.get('/', (req, res) => res.send('OpenClaw Live ESM!'));
 
-// Telegram webhook
-app.post('/telegram', (ctx) => bot.handleUpdate(ctx.req, ctx.res));
+// Telegram webhook  
+app.use(bot.webhookCallback('/webhook'));
 
-// Start bot
 bot.launch();
-app.listen(process.env.PORT || 3000, () => {
-  console.log('OpenClaw + Ollama live!');
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`OpenClaw ESM on port ${port}`);
 });
