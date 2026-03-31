@@ -5,15 +5,22 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// HEALTH CHECK - Shows "OpenClaw Live!"
 app.get('/', (req, res) => {
-  res.send('<h1>OpenClaw Railway Live! 🚀</h1><p>Bot ready for TELEGRAM_TOKEN</p>');
+  res.send('<h1>OpenClaw Railway Live! 🚀</h1><p>Bot active</p>');
 });
 
-// Bot placeholder
-app.get('/bot', (req, res) => res.send('Bot endpoint ready'));
+// Bot
+const bot = new Telegraf(process.env.TELEGRAM_TOKEN);
+bot.on('message', (ctx) => {
+  ctx.reply(`Agency AI: "${ctx.message.text}" → Leads ready!`);
+});
 
-const port = process.env.PORT || 3000;
+// Webhook + launch
+app.use(bot.webhookCallback('/secret-bot-path'));
+bot.launch();
+
+const port = process.env.PORT || 8080;
 app.listen(port, () => {
-  console.log(`🚀 OpenClaw running on port ${port}`);
+  console.log(`🚀 OpenClaw + Bot on ${port}`);
+  console.log('Bot token loaded:', !!process.env.TELEGRAM_TOKEN);
 });
