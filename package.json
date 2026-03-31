@@ -1,13 +1,14 @@
 {
   "name": "openclaw-ollama",
   "version": "1.0.0",
+  "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
     "openclaw": "latest",
     "ollama": "latest",
-    "telegraf": "4.16.3",
-    "express": "4.19.2"
+    "telegraf": "latest",
+    "express": "latest"
   }
 }
