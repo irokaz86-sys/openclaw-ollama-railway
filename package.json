@@ -1,14 +1,12 @@
 {
-  "name": "openclaw-ollama",
+  "name": "openclaw-railway",
   "version": "1.0.0",
   "type": "module",
   "scripts": {
     "start": "node server.js"
   },
   "dependencies": {
-    "openclaw": "latest",
-    "ollama": "latest",
-    "telegraf": "latest",
-    "express": "latest"
+    "express": "^4.19.2",
+    "telegraf": "^4.16.3"
   }
 }
